@@ -8,7 +8,7 @@ Goals:
 
 `-Support for WEBM: ❌ `
 
-`-Video crashing: ❌ `
+`-Discord crashing video: ❌ `
 
 `-More user-friendly environment: ❌ `
 
