@@ -1,4 +1,4 @@
-# Discord Video Manipulator
+# Discord Video Manipulator for Linux
 
 I bet you've already seen some cursed discord videos with negative length or those which are hilariously long.
 
