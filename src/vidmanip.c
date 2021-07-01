@@ -48,7 +48,7 @@ size_t GetmvhdOffset(char* pFilePath)
     }
     
     fclose(pFile);
-    return -1;
+    return 0;
 }
 
 
@@ -97,7 +97,7 @@ int main()
     printf("\nFinding the mvhd...(if this takes a long time, something is not right)\n");
     size_t iMVHD = GetmvhdOffset(szFilePath);
 
-    if(iMVHD < 0)
+    if(iMVHD <= 0)
     {
         printf("mvhd was not found. Is this .mp4 even valid? Quitting.");
         return 0;
