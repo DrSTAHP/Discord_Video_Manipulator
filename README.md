@@ -6,6 +6,8 @@ This tool allows to skip the process of going through hex editors and searching 
 Goals:
 
 `-Support for WEBM: ❌ `
+
 `-Video crashing: ❌ `
+
 `-More user-friendly environment: ❌ `
 
