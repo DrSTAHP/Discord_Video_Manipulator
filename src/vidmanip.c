@@ -82,7 +82,7 @@ void AppendVideoDuration(char* pFilePath, int iDuration, size_t iMVHD)
 #ifdef _WIN32
 	fopen_s(&pFile,pFilePath, "r+");
 #elif __linux__
-	pFile = f_open(pFilePath, "r+");
+    pFile = fopen(pFilePath, "r+");
 #endif
 
     uint8_t pTimeScale[4];
