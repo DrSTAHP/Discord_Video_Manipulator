@@ -74,10 +74,10 @@ void AppendVideoDuration(char* pFilePath, int iDuration, size_t iMVHD)
     split_bytes(0x00000001, pTimeScale);
     split_bytes(iDuration,pDuration);
 
-    fseek(pFile,((iMVHD + 4) + MVHD_TIME_OFFSET),SEEK_SET);
+    fseek(pFile,((iMVHD + 4) + MVHD_TIME_OFFSET),SEEK_SET); //TimeScale byte.
     fwrite(pTimeScale,EIGHT_BITS,4,pFile);
 
-    fseek(pFile,(((iMVHD + 4) + MVHD_TIME_OFFSET) + sizeof(int)),SEEK_SET);
+    fseek(pFile,(((iMVHD + 4) + MVHD_TIME_OFFSET) + sizeof(int)),SEEK_SET); //Duration byte.
     fwrite(pDuration,EIGHT_BITS,4,pFile); 
 
     fclose(pFile);
