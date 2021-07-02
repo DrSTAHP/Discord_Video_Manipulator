@@ -14,7 +14,8 @@ Installation:
 ```
 git clone https://github.com/DrSTAHP/Discord_Video_Manipulator.git <your optional desired directory here>
 ```
-2. Enter the downloaded repository:
+
+2. Enter the downloaded repository.
 
 3. Launch:
 ```
