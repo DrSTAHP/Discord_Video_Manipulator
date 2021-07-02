@@ -8,6 +8,10 @@ Discord Video Manipulator by DrSTAHP
 #include <stdint.h>
 #include <string.h>
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 #define MVHD_TIME_OFFSET 12 //12 bytes
 #define BYTE 8 //8 bits
 #define EIGHT_BITS 1 //1 byte
@@ -21,7 +25,14 @@ void GetOffsetData(FILE* pFile,unsigned long iOffset, void* pBuffer,size_t Buffe
 
 size_t GetmvhdOffset(char* pFilePath)
 {
-    FILE* pFile = fopen(pFilePath,"r");
+    
+	FILE* pFile = NULL;
+	
+#ifdef _WIN32
+	fopen_s(&pFile, pFilePath, "r");
+#elif __linux__
+	pFile = fopen(pFilePath,"r");
+#endif
 
     size_t iOffset = 0;
 
@@ -37,8 +48,8 @@ size_t GetmvhdOffset(char* pFilePath)
     {
         char szData[5];
         GetOffsetData(pFile, iOffset,szData,sizeof(szData));
-        
-        if(!strcmp(szRequired,szData))
+     
+		if (!strcmp(szRequired, szData))
         {    
             fclose(pFile);
             return iOffset;
@@ -66,7 +77,13 @@ void split_bytes(int iNumber,uint8_t* pBuffer)
 
 void AppendVideoDuration(char* pFilePath, int iDuration, size_t iMVHD)
 {
-    FILE* pFile = fopen(pFilePath, "r+");
+	FILE* pFile = NULL;
+
+#ifdef _WIN32
+	fopen_s(&pFile,pFilePath, "r+");
+#elif __linux__
+	pFile = f_open(pFilePath, "r+");
+#endif
 
     uint8_t pTimeScale[4];
     uint8_t pDuration[4];
@@ -83,16 +100,25 @@ void AppendVideoDuration(char* pFilePath, int iDuration, size_t iMVHD)
     fclose(pFile);
 }
 
+
 int main()
 {
     char szFilePath[2096];
     int iDuration = 1;
 
     printf("Enter the video's path: ");
-    scanf("%s",szFilePath);
-
-    printf("Enter the duration in seconds: ");
-    scanf("%i",&iDuration);
+#ifdef _WIN32                           //Gonna fix those ugly preprocessor blocks later.
+	scanf_s("%s", szFilePath);
+#elif __linux__
+	scanf("%s",szFilePath);
+#endif
+    
+	printf("Enter the duration in seconds: ");
+#ifdef _WIN32
+	scanf_s("%i", &iDuration);
+#elif __linux__
+	scanf("%i", &iDuration);
+#endif
 
     printf("\nFinding the mvhd...(if this takes a long time, something is not right)\n");
     size_t iMVHD = GetmvhdOffset(szFilePath);
@@ -109,5 +135,9 @@ int main()
     AppendVideoDuration(szFilePath, iDuration, iMVHD);
 
     printf("\nDONE!\n");
+
+#ifdef _WIN32
+	system("pause");
+#endif
     return 0;
 }
