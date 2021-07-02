@@ -6,6 +6,26 @@ This tool allows to skip the process of going through hex editors and searching 
 
 Installation:
 
+
+``FOR WINDOWS``
+
+
+1. Download this repository, either through this website or by using:
+```
+git clone https://github.com/DrSTAHP/Discord_Video_Manipulator.git <your optional desired directory here>
+```
+
+2. Enter the downloaded repository.
+
+3. Launch:
+```
+vidmanip.exe
+```
+
+
+``FOR LINUX``
+
+
 1. Download this repository, either through this website or by using:
 ```
 git clone https://github.com/DrSTAHP/Discord_Video_Manipulator_Linux.git <your optional desired directory here>
