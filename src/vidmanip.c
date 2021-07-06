@@ -19,9 +19,6 @@ Discord Video Manipulator by DrSTAHP
 
 #define MAX_ARGUMENTS 255 
 
-#define TRUE 1
-#define FALSE 0
-
 void GetOffsetData(FILE* pFile,unsigned long iOffset, void* pBuffer,size_t BufferSize)
 {
     fseek(pFile, iOffset, SEEK_SET);
@@ -110,7 +107,7 @@ void PromptFilePath(char* pBuffer)
 {
     printf("Enter the video's path: ");
 #ifdef _WIN32                           //Gonna fix those ugly preprocessor blocks later.
-	scanf_s("%s", szFilePath);
+	scanf_s("%s", pBuffer);
 #elif __linux__
 	scanf("%s",pBuffer);
 #endif
@@ -121,7 +118,7 @@ void PromptDuration(int* pBuffer)
 {
     printf("Enter the video's duration: ");
 #ifdef _WIN32                           //Gonna fix those ugly preprocessor blocks later.
-	scanf_s("%s", szFilePath);
+	scanf_s("%s", pBuffer);
 #elif __linux__
 	scanf("%i",pBuffer);
 #endif
@@ -187,7 +184,7 @@ void HandleArguments(int argc, char** argv)
     int iDuration = 1;
 
 #ifdef _WIN32
-    strcpy_s(szFilePath, argv[iFileFlagPos]);
+    strcpy_s(szFilePath, sizeof(szFileFlag), argv[iFileFlagPos]);
 #elif __linux__
     strcpy(szFilePath, argv[iFileFlagPos + 1]);
 #endif
