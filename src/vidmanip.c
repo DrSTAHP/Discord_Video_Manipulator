@@ -158,10 +158,6 @@ int main(int argc, char **argv)
 			ProcessWEBM(szFilePath, &iDuration);
 		else
 			printf("\nERROR: Invalid video type!\n\n");
-
-#ifdef _WIN32
-		system("pause");
-#endif
 	}
 
 	else if (argc >= MAX_ARGUMENTS)
@@ -174,5 +170,8 @@ int main(int argc, char **argv)
 		HandleArguments(argc, argv);
 	}
 
+#ifdef _WIN32
+	system("pause");
+#endif
 	return 0;
 }
