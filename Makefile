@@ -1,5 +1,5 @@
 vidmanip: vidmanip.o mp4.o webm.o shared.o
-	gcc vidmanip.o mp4.o webm.o src/shared.o -o vidmanip
+	gcc vidmanip.o mp4.o webm.o shared.o -o vidmanip
 	rm *.o
 
 vidmanip.o: src/vidmanip.c
