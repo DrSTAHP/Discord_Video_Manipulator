@@ -1,5 +1,6 @@
 #include "mp4.h"
 #include "shared.h"
+#include <string.h>
 
 size_t GetmvhdOffset(char* pFilePath)
 {
