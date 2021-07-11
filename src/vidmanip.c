@@ -7,6 +7,7 @@ Discord Video Manipulator by DrSTAHP
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "mp4.h"
 #include "webm.h"
@@ -23,6 +24,9 @@ Discord Video Manipulator by DrSTAHP
 #define WEBM_TYPE  "webm" //}
 
 #define MAX_ARGUMENTS 255
+
+#define TRUE 1
+#define FALSE 0
 
 void CopyString(const char* dst, const char* src)
 {
@@ -63,7 +67,7 @@ void PromptType(char* pBuffer)
 
 void PrintHelp()
 {
-	printf("Flags:\n\n-f describes the file path\n-d describes the duration\nt describes the file type (mp4 ; webm[NOT USABLE YET])\n\n--help is used to help you\n\n");
+	printf("Flags:\n\n-f describes the file path\n-d describes the duration\n-t describes the file type (mp4 ; webm[NOT USABLE YET])\n\n--help is used to help you\n\n");
 }
 
 void HandleArguments(int argc, char** argv)
@@ -81,22 +85,30 @@ void HandleArguments(int argc, char** argv)
 
 	for (unsigned int i = 1; i < argc; i++)
 	{
+		uint8_t bIsFlag = FALSE;
+		
 		if (i + 1 < argc) //To avoid the segmentation fault when the last flag's value is empty or not given.
-		{ 
+		{
 			if (!strcmp(argv[i], szFileFlag))
 			{
 				iFlags |= FILE_FLAG;
 				CopyString(szFilePath, argv[i + 1]);
+
+				bIsFlag = TRUE;
 			}
 			else if (!strcmp(argv[i], szDurationFlag))
 			{
 				iFlags |= DURATION_FLAG;
 				iDuration = atoi(argv[i + 1]);
+
+				bIsFlag = TRUE;
 			}
 			else if (!strcmp(argv[i], szTypeFlag))
 			{
 				iFlags |= TYPE_FLAG;
 				CopyString(szType, argv[i + 1]);
+
+				bIsFlag = TRUE;
 			}
 		}
 		if (!strcmp(argv[i], szHelp))
@@ -104,24 +116,24 @@ void HandleArguments(int argc, char** argv)
 			PrintHelp();
 			return;
 		}
-		else if (strcmp(argv[i - 1], szFileFlag) && strcmp(argv[i - 1], szDurationFlag) && strcmp(argv[i - 1], szTypeFlag))
+		else if (!bIsFlag && strcmp(argv[i - 1], szFileFlag) && strcmp(argv[i - 1], szDurationFlag) && strcmp(argv[i - 1], szTypeFlag))
 		{
 			printf("\nERROR: Invalid argument %s ! Consider using --help\n\n", argv[i]);
 			return;
 		}
 	}
 
-	if (iFlags & ~FILE_FLAG)
+	if (!(iFlags & FILE_FLAG))
 	{
 		PromptFilePath(szFilePath);
 	}
 
-	if (iFlags & ~DURATION_FLAG)
+	if (!(iFlags & DURATION_FLAG))
 	{
 		PromptDuration(&iDuration);
 	}
 
-	if (iFlags & ~TYPE_FLAG)
+	if (!(iFlags & TYPE_FLAG))
 	{
 		PromptType(szType);
 	}
