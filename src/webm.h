@@ -1,7 +1,9 @@
 #ifndef WEBM_H
 #define WEBM_H
 
-extern void AppendWEBMDuration(char* pFilePath, int iDuration);
+#include <stdio.h>
+
+extern void AppendWEBMDuration(char* pFilePath, int iDuration, size_t iDurationByte);
 extern void ProcessWEBM(char* pFilePath, int* pDuration);
 
 #endif
