@@ -11,6 +11,7 @@ Discord Video Manipulator by DrSTAHP
 
 #include "mp4.h"
 #include "webm.h"
+#include "shared.h"
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -24,9 +25,6 @@ Discord Video Manipulator by DrSTAHP
 #define WEBM_TYPE  "webm" //}
 
 #define MAX_ARGUMENTS 255
-
-#define TRUE 1
-#define FALSE 0
 
 void CopyString(const char* dst, const char* src)
 {
@@ -61,13 +59,13 @@ void PromptDuration(int* pBuffer)
 
 void PromptType(char* pBuffer)
 {
-	printf("Enter the video's type (mp4/webm[NOT USABLE YET]): ");
+	printf("Enter the video's type (mp4/webm): ");
 	Scan("%s", pBuffer);
 }
 
 void PrintHelp()
 {
-	printf("Flags:\n\n-f describes the file path\n-d describes the duration\n-t describes the file type (mp4 ; webm[NOT USABLE YET])\n\n--help is used to help you\n\n");
+	printf("Flags:\n\n-f describes the file path\n-d describes the duration\n-t describes the file type (mp4 ; webm)\n\n--help is used to help you\n\n");
 }
 
 void HandleArguments(int argc, char** argv)
