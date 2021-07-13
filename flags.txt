@@ -1,0 +1,7 @@
+Flags:
+
+-f describes the file path
+-d describes the duration
+-t describes the file type (mp4 ; webm)
+
+--help is used to help you
