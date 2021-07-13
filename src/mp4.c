@@ -1,8 +1,9 @@
 #include "mp4.h"
 #include "shared.h"
+#include <netinet/in.h>
 #include <string.h>
 
-size_t GetmvhdOffset(char* pFilePath)
+static size_t GetmvhdOffset(char* pFilePath)
 {
 
 	FILE* pFile = NULL;
@@ -51,17 +52,16 @@ void AppendMP4Duration(char* pFilePath, int iDuration, size_t iMVHD)
 	pFile = fopen(pFilePath, "r+");
 #endif
 
-	uint8_t pTimeScale[4];
-	uint8_t pDuration[4];
+	//htonl is used to convert the number to big endian (network byte order), regardless of host's CPU architecture. 
+	const unsigned int iTimeScale = htonl(0x00000001);
+	iDuration = htonl(iDuration);
 
-	split_bytes(0x00000001, pTimeScale);
-	split_bytes(iDuration, pDuration);
-
+	//htons is used to convert the number to big endian (network byte order), regardless of host's CPU architecture. 
 	fseek(pFile, ((iMVHD + 4) + MVHD_TIME_OFFSET), SEEK_SET); //TimeScale byte.
-	fwrite(pTimeScale, EIGHT_BITS, 4, pFile);
+	fwrite(&iTimeScale, sizeof(int), 1, pFile);
 
 	fseek(pFile, (((iMVHD + 4) + MVHD_TIME_OFFSET) + sizeof(int)), SEEK_SET); //Duration byte.
-	fwrite(pDuration, EIGHT_BITS, 4, pFile);
+	fwrite(&iDuration, sizeof(int), 1, pFile);
 
 	fclose(pFile);
 }
