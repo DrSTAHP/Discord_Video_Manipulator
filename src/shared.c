@@ -1,5 +1,4 @@
 #include "shared.h"
-#include <stdint.h>
 
 void GetOffsetData(FILE* pFile, unsigned long iOffset, void* pBuffer, size_t BufferSize)
 {

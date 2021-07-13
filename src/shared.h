@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#ifdef __WIN32
+#ifdef _WIN32
 #include <winsock2.h>
 #elif __linux__
 #include <arpa/inet.h>

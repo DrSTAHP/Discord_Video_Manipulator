@@ -1,7 +1,5 @@
 #include "webm.h"
 #include "shared.h"
-#include <stdint.h>
-#include <stdio.h>
 
 static uint8_t compare_bytes(uint8_t* pArr1, uint8_t* pArr2, size_t iSize)
 {
