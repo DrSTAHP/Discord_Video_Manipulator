@@ -80,7 +80,7 @@ static size_t GetDurationOffset(char* pFilePath)
 	return iOffset;
 }
 
-void AppendWEBMDuration(char* pFilePath, int iDuration,size_t iDurationByte)
+void AppendWEBMDuration(char* pFilePath, int16_t iDuration, size_t iDurationByte)
 {
 
 	FILE* pFile = NULL;
@@ -91,19 +91,19 @@ void AppendWEBMDuration(char* pFilePath, int iDuration,size_t iDurationByte)
 	pFile = fopen(pFilePath, "r+");
 #endif
 
-	iDuration = htonl(iDuration);
+	iDuration = htons(iDuration);
 
 	fseek(pFile,0,SEEK_SET);
 
-	fseek(pFile,(iDurationByte + 2),SEEK_SET);
-	fwrite(&iDuration,sizeof(int),1,pFile);
+	fseek(pFile,(iDurationByte + 4),SEEK_SET);
+	fwrite(&iDuration, sizeof(int16_t), 1, pFile);
 
 	fseek(pFile,0,SEEK_SET);
 
 	fclose(pFile);
 }
 
-void ProcessWEBM(char* pFilePath, int* pDuration)
+void ProcessWEBM(char* pFilePath, int16_t* pDuration)
 {
 	printf("\nFinding the duration byte...(if this takes a long time, something is not right)\n");
 	size_t iDurationByte = GetDurationOffset(pFilePath);

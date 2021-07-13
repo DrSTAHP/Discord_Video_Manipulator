@@ -137,7 +137,7 @@ void HandleArguments(int argc, char** argv)
 	if (!strcmp(szType, MPEG4_TYPE))
 		ProcessMP4(szFilePath, &iDuration);
 	else if (!strcmp(szType, WEBM_TYPE))
-		ProcessWEBM(szFilePath, &iDuration);
+		ProcessWEBM(szFilePath, &((int16_t)iDuration));
 	else
 		printf("\nERROR: Invalid video type!\n\n");
 
@@ -163,7 +163,7 @@ int main(int argc, char **argv)
 		if (!strcmp(szType, MPEG4_TYPE))
 			ProcessMP4(szFilePath, &iDuration);
 		else if (!strcmp(szType, WEBM_TYPE))
-			ProcessWEBM(szFilePath, &iDuration);
+			ProcessWEBM(szFilePath, &((int16_t)iDuration));
 		else
 			printf("\nERROR: Invalid video type!\n\n");
 	}
