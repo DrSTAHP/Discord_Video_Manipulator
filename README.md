@@ -43,6 +43,8 @@ make
 ./vidmanip
 ```
 
+You can use parameters as well for both platforms, you can find a list of them in `flags.txt`.
+
 Have fun!
 
 Credits:
